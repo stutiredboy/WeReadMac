@@ -15,6 +15,7 @@
 		4EC6CE69C80143AEB3CF4FB8 /* NavigationPolicyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D209E5EFB6D481F9BC1F882; };
 		5DE17E52BB6E47D5AD8643D6 /* LaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D1EFB100714DE1AA79E80F; };
 		045D2452928A4AE2AF6A31DC /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5547868788C46C59F7539B5; };
+		A1B2C3D4E5F647A8B9C0D1E2 /* Credits.html in Resources */ = {isa = PBXBuildFile; fileRef = F1E2D3C4B5A64789B0C1D2E3; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +48,7 @@
 		740803C3677048F48809DDFE /* WeReadMacUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WeReadMacUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4D1EFB100714DE1AA79E80F /* LaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchTests.swift; sourceTree = "<group>"; };
 		C5547868788C46C59F7539B5 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		F1E2D3C4B5A64789B0C1D2E3 /* Credits.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = Credits.html; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +96,7 @@
 				C5547868788C46C59F7539B5,
 				0E436B7A772A447B8350B40D,
 				02268A007AC34C34A57787CB,
+				F1E2D3C4B5A64789B0C1D2E3,
 			);
 			path = WeReadMac;
 			sourceTree = "<group>";
@@ -215,6 +218,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F8FBEECC0B714DAAA86103EC,
+				A1B2C3D4E5F647A8B9C0D1E2,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
