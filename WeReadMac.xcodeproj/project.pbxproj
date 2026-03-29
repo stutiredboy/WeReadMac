@@ -1,0 +1,484 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		952E470983064153819C7FD4 /* WeReadMacApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4356200A9E3C4B9B8ACF0C59; };
+		5AF7A602D15447E1B5B95944 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E0A7785B5D4D1D962FE541; };
+		0BC041EA2E2D4A7E935D3DC1 /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F059D6498A64135AF78FC10; };
+		FCCE58BD8A0E447D97258C08 /* NavigationPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367668E9714C410FB2CF438D; };
+		F8FBEECC0B714DAAA86103EC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 02268A007AC34C34A57787CB; };
+		4EC6CE69C80143AEB3CF4FB8 /* NavigationPolicyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D209E5EFB6D481F9BC1F882; };
+		5DE17E52BB6E47D5AD8643D6 /* LaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D1EFB100714DE1AA79E80F; };
+		045D2452928A4AE2AF6A31DC /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5547868788C46C59F7539B5; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		ADFC933FC53C45E3AD06E315 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 18F314D9808A4B4F8F7C6431;
+			proxyType = 1;
+			remoteGlobalIDString = AE462E875D9843C2A90631DD;
+			remoteInfo = WeReadMac;
+		};
+		DA903C2193A742948B037115 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 18F314D9808A4B4F8F7C6431;
+			proxyType = 1;
+			remoteGlobalIDString = AE462E875D9843C2A90631DD;
+			remoteInfo = WeReadMac;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		B85E170B19B44E7F870369AD /* WeReadMac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeReadMac.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4356200A9E3C4B9B8ACF0C59 /* WeReadMacApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeReadMacApp.swift; sourceTree = "<group>"; };
+		A4E0A7785B5D4D1D962FE541 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		0F059D6498A64135AF78FC10 /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
+		367668E9714C410FB2CF438D /* NavigationPolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationPolicy.swift; sourceTree = "<group>"; };
+		0E436B7A772A447B8350B40D /* WeReadMac.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WeReadMac.entitlements; sourceTree = "<group>"; };
+		02268A007AC34C34A57787CB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		6BE863A02CB040D091AE5B4E /* WeReadMacTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WeReadMacTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		6D209E5EFB6D481F9BC1F882 /* NavigationPolicyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationPolicyTests.swift; sourceTree = "<group>"; };
+		740803C3677048F48809DDFE /* WeReadMacUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WeReadMacUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C4D1EFB100714DE1AA79E80F /* LaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchTests.swift; sourceTree = "<group>"; };
+		C5547868788C46C59F7539B5 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		9234A17FABCC4D3D9DEE2730 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BD47F7A583584A31BA17315A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FD36AA56DECF4CC697F7926E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		BDAF53D142634BAF853C2CAC = {
+			isa = PBXGroup;
+			children = (
+				749005AB4A6B4DA8A81E52B2,
+				6FCDC6D3563C4B609E443589,
+				35BC108A6A0C46558D99DE37,
+				AAD01724FFED4E08AF90702D,
+			);
+			sourceTree = "<group>";
+		};
+		749005AB4A6B4DA8A81E52B2 /* WeReadMac */ = {
+			isa = PBXGroup;
+			children = (
+				4356200A9E3C4B9B8ACF0C59,
+				A4E0A7785B5D4D1D962FE541,
+				0F059D6498A64135AF78FC10,
+				367668E9714C410FB2CF438D,
+				C5547868788C46C59F7539B5,
+				0E436B7A772A447B8350B40D,
+				02268A007AC34C34A57787CB,
+			);
+			path = WeReadMac;
+			sourceTree = "<group>";
+		};
+		6FCDC6D3563C4B609E443589 /* WeReadMacTests */ = {
+			isa = PBXGroup;
+			children = (
+				6D209E5EFB6D481F9BC1F882,
+			);
+			path = WeReadMacTests;
+			sourceTree = "<group>";
+		};
+		35BC108A6A0C46558D99DE37 /* WeReadMacUITests */ = {
+			isa = PBXGroup;
+			children = (
+				C4D1EFB100714DE1AA79E80F,
+			);
+			path = WeReadMacUITests;
+			sourceTree = "<group>";
+		};
+		AAD01724FFED4E08AF90702D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B85E170B19B44E7F870369AD,
+				6BE863A02CB040D091AE5B4E,
+				740803C3677048F48809DDFE,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		AE462E875D9843C2A90631DD /* WeReadMac */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9F6EFFE742E04907869C6738;
+			buildPhases = (
+				0EFBCFCD26474CD2931ADC4C,
+				9234A17FABCC4D3D9DEE2730,
+				9907BA5FA8FF41119A800492,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = WeReadMac;
+			productName = WeReadMac;
+			productReference = B85E170B19B44E7F870369AD;
+			productType = "com.apple.product-type.application";
+		};
+		21CA888D4A03400B8619B966 /* WeReadMacTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FCEC5F20B9DC4772948ECA76;
+			buildPhases = (
+				41B5506B6B5A4DEFB8DA1B6D,
+				BD47F7A583584A31BA17315A,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				1A880C57E678414397F2E5B7,
+			);
+			name = WeReadMacTests;
+			productName = WeReadMacTests;
+			productReference = 6BE863A02CB040D091AE5B4E;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		43EEA6D4227B4942AED2F97A /* WeReadMacUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9741B93EC0D54A01AE995FAF;
+			buildPhases = (
+				63CD69D239014DF2B0D51FAD,
+				FD36AA56DECF4CC697F7926E,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E42A6852C2C944B6A90E32BB,
+			);
+			name = WeReadMacUITests;
+			productName = WeReadMacUITests;
+			productReference = 740803C3677048F48809DDFE;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		18F314D9808A4B4F8F7C6431 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1500;
+				LastUpgradeCheck = 1500;
+			};
+			buildConfigurationList = 718D653FABF040A2A85BC6B8;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = "zh-Hans";
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				"zh-Hans",
+				Base,
+			);
+			mainGroup = BDAF53D142634BAF853C2CAC;
+			productRefGroup = AAD01724FFED4E08AF90702D;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				AE462E875D9843C2A90631DD,
+				21CA888D4A03400B8619B966,
+				43EEA6D4227B4942AED2F97A,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		9907BA5FA8FF41119A800492 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F8FBEECC0B714DAAA86103EC,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		0EFBCFCD26474CD2931ADC4C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				952E470983064153819C7FD4,
+				5AF7A602D15447E1B5B95944,
+				0BC041EA2E2D4A7E935D3DC1,
+				FCCE58BD8A0E447D97258C08,
+				045D2452928A4AE2AF6A31DC,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		41B5506B6B5A4DEFB8DA1B6D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4EC6CE69C80143AEB3CF4FB8,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		63CD69D239014DF2B0D51FAD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5DE17E52BB6E47D5AD8643D6,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		1A880C57E678414397F2E5B7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AE462E875D9843C2A90631DD;
+			targetProxy = ADFC933FC53C45E3AD06E315;
+		};
+		E42A6852C2C944B6A90E32BB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AE462E875D9843C2A90631DD;
+			targetProxy = DA903C2193A742948B037115;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		44BB8A9136BE459187E6766C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		D80B7E94746043A9BC44299F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+			};
+			name = Release;
+		};
+		1F2BF1D0BE8245D8B5D2B049 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = WeReadMac/WeReadMac.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.books";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.wereadmac.app";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		1FD84C8020874545BB0CEE5D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = WeReadMac/WeReadMac.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.books";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.wereadmac.app";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		E41A13EA74D74F228B3083C9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.wereadmac.app.tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/WeReadMac.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/WeReadMac";
+			};
+			name = Debug;
+		};
+		C27DA58485CE44A2834C0D85 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.wereadmac.app.tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/WeReadMac.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/WeReadMac";
+			};
+			name = Release;
+		};
+		47DF7C39F3014A6D8C1AFCB4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.wereadmac.app.uitests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = WeReadMac;
+			};
+			name = Debug;
+		};
+		858D38A45C0F4B349AB4E556 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.wereadmac.app.uitests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = WeReadMac;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		718D653FABF040A2A85BC6B8 /* Build configuration list for PBXProject "WeReadMac" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				44BB8A9136BE459187E6766C,
+				D80B7E94746043A9BC44299F,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9F6EFFE742E04907869C6738 /* Build configuration list for PBXNativeTarget "WeReadMac" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1F2BF1D0BE8245D8B5D2B049,
+				1FD84C8020874545BB0CEE5D,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FCEC5F20B9DC4772948ECA76 /* Build configuration list for PBXNativeTarget "WeReadMacTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E41A13EA74D74F228B3083C9,
+				C27DA58485CE44A2834C0D85,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9741B93EC0D54A01AE995FAF /* Build configuration list for PBXNativeTarget "WeReadMacUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				47DF7C39F3014A6D8C1AFCB4,
+				858D38A45C0F4B349AB4E556,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 18F314D9808A4B4F8F7C6431;
+}
