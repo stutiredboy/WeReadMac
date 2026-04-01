@@ -26,6 +26,7 @@ Package.resolved
 
 # Claude Code
 .claude/
+CLAUDE.md
 
 .vscode/
 .specify
