@@ -23,11 +23,41 @@ struct WeReadMacApp: App {
                     NotificationCenter.default.post(name: .webViewGoForward, object: nil)
                 }
                 .keyboardShortcut("]", modifiers: .command)
+
+                Divider()
+
+                NotesMenuButtons()
             }
         }
 
         Settings {
             SettingsView()
+        }
+
+        Window("搜索笔记", id: "notes-search") {
+            NotesSearchView()
+        }
+        .defaultSize(width: 600, height: 500)
+
+        Window("浏览笔记", id: "notes-list") {
+            NotesListView()
+        }
+        .defaultSize(width: 800, height: 600)
+    }
+}
+
+/// Extracted into a View so we can use @Environment(\.openWindow)
+struct NotesMenuButtons: View {
+    @Environment(\.openWindow) private var openWindow
+
+    var body: some View {
+        Button("搜索笔记") {
+            openWindow(id: "notes-search")
+        }
+        .keyboardShortcut("n", modifiers: [.command, .shift])
+
+        Button("浏览笔记") {
+            openWindow(id: "notes-list")
         }
     }
 }

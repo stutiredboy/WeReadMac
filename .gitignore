@@ -26,3 +26,9 @@ Package.resolved
 
 # Claude Code
 .claude/
+
+.vscode/
+.specify
+build
+WeReadMac.dmg
+specs

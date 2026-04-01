@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-WeReadMac is a macOS application (early stage — no application code yet). The repository uses **Specify (speckit) v0.4.3**, a spec-driven development framework that structures feature work through specifications, plans, and tasks before implementation begins.
+WeReadMac is a macOS desktop wrapper application for weread.qq.com (微信读书), built with Swift/SwiftUI and WKWebView. It intercepts WeRead's highlight and thought API calls via JavaScript injection, persists captured notes to an encrypted CoreData store, and provides search and export (Markdown/JSON) capabilities. The repository uses **Specify (speckit) v0.4.3**, a spec-driven development framework that structures feature work through specifications, plans, and tasks before implementation begins.
 
 ## Specify Workflow
 
@@ -33,3 +33,23 @@ Feature branches use sequential numbering: `001-feature-name`, `002-feature-name
 ## Template Resolution
 
 Templates resolve in priority order: project overrides → presets → extensions → core templates. Override a core template by placing a file with the same name in `.specify/templates/overrides/`.
+
+## Active Technologies
+- Swift 5.9+, macOS 13.0+ (Ventura)
+- WebKit (WKWebView, WKUserContentController, WKScriptMessageHandler) — WebView hosting and JS↔Native bridge
+- CoreData (NSPersistentContainer) with encrypted persistent store — local notes persistence
+- SwiftUI — UI framework for notes search, browsing, and export views
+- JavaScript (intercept.js) — fetch/XHR monkey-patching for API interception
+- JavaScript response interception (fetch clone + XHR load event) for bookmarklist sync (003-bookmark-list-sync)
+
+## WeRead API Endpoints
+- `/web/book/addBookmark` (POST) — create highlight (markText is base64-encoded)
+- `/web/book/removeBookmark` (POST) — delete highlight (bookmarkId = `{bookId}_{chapterUid}_{range}`)
+- `/web/review/add` (POST) — create thought (content/abstract are plaintext)
+- `/web/book/info?bookId=` (GET) — book metadata
+- `/web/book/chapterInfos` (POST) — chapter list
+- `/web/book/bookmarklist?bookId=` (GET) — fetch all bookmarks for a book (markText is plaintext, createTime in seconds)
+
+## Recent Changes
+- 003-bookmark-list-sync: Bookmark list sync on book open — intercept bookmarklist GET response, batch-dedup by bookmarkId, insert missing highlights to CoreData, per-bookId sync lock to skip concurrent requests, build-dmg.sh packaging script
+- 002-local-notes-capture: JS interception of WeRead highlights/thoughts, CoreData persistence with base64 decoding, book/chapter info enrichment, keyword search, Markdown/JSON export, delete sync via composite bookmarkId

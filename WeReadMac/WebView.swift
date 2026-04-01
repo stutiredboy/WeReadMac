@@ -8,6 +8,23 @@ struct WebView: NSViewRepresentable {
         let configuration = WKWebViewConfiguration()
         configuration.websiteDataStore = .default()
 
+        // Inject JavaScript interceptor for notes capture
+        let contentController = configuration.userContentController
+        if let jsURL = Bundle.main.url(forResource: "intercept", withExtension: "js"),
+           let jsSource = try? String(contentsOf: jsURL, encoding: .utf8) {
+            let userScript = WKUserScript(
+                source: jsSource,
+                injectionTime: .atDocumentStart,
+                forMainFrameOnly: false
+            )
+            contentController.addUserScript(userScript)
+        }
+
+        let captureService = NotesCaptureService()
+        let captureHandler = NotesCaptureHandler(captureService: captureService)
+        contentController.add(captureHandler, name: "notesCapture")
+        context.coordinator.captureHandler = captureHandler
+
         let webView = WKWebView(frame: .zero, configuration: configuration)
         webView.navigationDelegate = context.coordinator
         webView.uiDelegate = context.coordinator
@@ -40,8 +57,15 @@ struct WebView: NSViewRepresentable {
         Coordinator()
     }
 
+    static func dismantleNSView(_ nsView: WKWebView, coordinator: Coordinator) {
+        nsView.configuration.userContentController.removeScriptMessageHandler(forName: "notesCapture")
+        nsView.configuration.userContentController.removeAllUserScripts()
+        coordinator.captureHandler = nil
+    }
+
     class Coordinator: NSObject, WKNavigationDelegate, WKUIDelegate {
         weak var webView: WKWebView?
+        var captureHandler: NotesCaptureHandler?
 
         // MARK: - WKNavigationDelegate
 
