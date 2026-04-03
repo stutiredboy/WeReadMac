@@ -133,6 +133,7 @@ final class NotesExportService {
                 "thoughtText": t.thoughtText ?? "",
                 "createdAt": t.createdAt.map { isoFormatter.string(from: $0) } ?? ""
             ]
+            if let v = t.reviewId { item["reviewId"] = v }
             if let v = t.passageText { item["passageText"] = v }
             if let v = t.chapterUid { item["chapterUid"] = v }
             if let v = t.chapterTitle { item["chapterTitle"] = v }

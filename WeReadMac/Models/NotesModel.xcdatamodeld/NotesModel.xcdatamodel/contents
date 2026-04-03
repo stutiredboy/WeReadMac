@@ -35,6 +35,7 @@
     </entity>
     <entity name="Thought" representedClassName="Thought" syncable="YES" codeGenerationType="class">
         <attribute name="thoughtId" attributeType="String"/>
+        <attribute name="reviewId" optional="YES" attributeType="String"/>
         <attribute name="thoughtText" attributeType="String"/>
         <attribute name="passageText" optional="YES" attributeType="String"/>
         <attribute name="chapterUid" optional="YES" attributeType="String"/>
