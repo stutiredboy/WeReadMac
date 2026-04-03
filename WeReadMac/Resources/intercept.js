@@ -181,6 +181,24 @@
     // Track in-flight bookmark list syncs per bookId to skip duplicate requests
     var bookmarkListSyncing = {};
 
+    function processReviewAddResponse(url, responseBody, requestBody) {
+        var data = tryParseJSON(responseBody);
+        if (!data || !data.reviewId) return;
+
+        // Merge request fields with response reviewId for matching on native side
+        var reqBody = tryParseJSON(requestBody) || {};
+        var merged = {
+            reviewId: String(data.reviewId),
+            bookId: reqBody.bookId,
+            content: reqBody.content,
+            abstract: reqBody.abstract,
+            chapterUid: reqBody.chapterUid,
+            range: reqBody.range
+        };
+        sendToNative('thoughtReviewId', url, 'POST', decodePayloadFields(merged));
+        console.log('[WeReadMac] Captured reviewId from /web/review/add: ' + data.reviewId);
+    }
+
     function processResponse(url, responseBody) {
         if (!url || url.toLowerCase().indexOf('bookmarklist') === -1) return;
         var data = tryParseJSON(responseBody);
@@ -248,11 +266,19 @@
 
     XMLHttpRequest.prototype.send = function(data) {
         processRequest(this.__wr_url || '', this.__wr_method, data);
-        // Intercept response for bookmarklist URLs
         var wrUrl = this.__wr_url || '';
-        if (wrUrl.toLowerCase().indexOf('bookmarklist') !== -1) {
+        var lowerUrl = wrUrl.toLowerCase();
+        // Intercept response for bookmarklist URLs
+        if (lowerUrl.indexOf('bookmarklist') !== -1) {
             this.addEventListener('load', function() {
                 processResponse(wrUrl, this.responseText);
+            });
+        }
+        // Intercept response for /web/review/add
+        if (lowerUrl.indexOf('/web/review/add') !== -1 || (lowerUrl.indexOf('review') !== -1 && lowerUrl.indexOf('add') !== -1)) {
+            var reqData = data;
+            this.addEventListener('load', function() {
+                processReviewAddResponse(wrUrl, this.responseText, reqData);
             });
         }
         return origSend.apply(this, arguments);
@@ -266,12 +292,23 @@
         var rawBody = init && init.body;
         processRequest(url, method, rawBody);
         var result = origFetch.apply(this, arguments);
+        var lowerFetchUrl = url ? url.toLowerCase() : '';
         // Intercept response for bookmarklist URLs
-        if (url && url.toLowerCase().indexOf('bookmarklist') !== -1) {
+        if (lowerFetchUrl.indexOf('bookmarklist') !== -1) {
             result = result.then(function(response) {
                 var cloned = response.clone();
                 cloned.json().then(function(data) {
                     processResponse(url, data);
+                }).catch(function() {});
+                return response;
+            });
+        }
+        // Intercept response for /web/review/add
+        if (lowerFetchUrl.indexOf('/web/review/add') !== -1 || (lowerFetchUrl.indexOf('review') !== -1 && lowerFetchUrl.indexOf('add') !== -1)) {
+            result = result.then(function(response) {
+                var cloned = response.clone();
+                cloned.json().then(function(data) {
+                    processReviewAddResponse(url, data, rawBody);
                 }).catch(function() {});
                 return response;
             });

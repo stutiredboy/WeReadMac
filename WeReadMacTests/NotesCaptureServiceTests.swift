@@ -232,7 +232,8 @@ final class NotesCaptureServiceTests: XCTestCase {
         book.updatedAt = Date()
 
         let thought = Thought(context: context)
-        thought.thoughtId = "rev-update-1"
+        thought.thoughtId = UUID().uuidString
+        thought.reviewId = "rev-update-1"
         thought.thoughtText = "original thought"
         thought.passageText = "original passage"
         thought.createdAt = Date()
@@ -252,7 +253,7 @@ final class NotesCaptureServiceTests: XCTestCase {
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
             let request: NSFetchRequest<Thought> = Thought.fetchRequest()
-            request.predicate = NSPredicate(format: "thoughtId == %@", "rev-update-1")
+            request.predicate = NSPredicate(format: "reviewId == %@", "rev-update-1")
             let results = try? self.store.viewContext.fetch(request)
             XCTAssertEqual(results?.first?.thoughtText, "updated thought text")
             XCTAssertEqual(results?.first?.passageText, "updated passage")
@@ -278,8 +279,8 @@ final class NotesCaptureServiceTests: XCTestCase {
         wait(for: [expectation], timeout: 3.0)
     }
 
-    func testDeleteThoughtSetsServerDeletedFlag() {
-        let expectation = expectation(description: "Thought delete flag set")
+    func testDeleteThoughtRemovesRecord() {
+        let expectation = expectation(description: "Thought deleted")
         let context = store.viewContext
         let book = Book(context: context)
         book.bookId = "book-tdel"
@@ -289,7 +290,8 @@ final class NotesCaptureServiceTests: XCTestCase {
         book.updatedAt = Date()
 
         let thought = Thought(context: context)
-        thought.thoughtId = "rev-del-1"
+        thought.thoughtId = "tid-del-1"
+        thought.reviewId = "rev-del-1"
         thought.thoughtText = "to be deleted"
         thought.createdAt = Date()
         thought.capturedAt = Date()
@@ -302,9 +304,115 @@ final class NotesCaptureServiceTests: XCTestCase {
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
             let request: NSFetchRequest<Thought> = Thought.fetchRequest()
-            request.predicate = NSPredicate(format: "thoughtId == %@", "rev-del-1")
+            request.predicate = NSPredicate(format: "reviewId == %@", "rev-del-1")
             let results = try? self.store.viewContext.fetch(request)
-            XCTAssertEqual(results?.first?.serverDeleted, true)
+            XCTAssertEqual(results?.count, 0, "Thought should be deleted from CoreData")
+            expectation.fulfill()
+        }
+        wait(for: [expectation], timeout: 3.0)
+    }
+
+    func testDeleteThoughtNoMatchingReviewId() {
+        let expectation = expectation(description: "No crash on missing reviewId")
+        let deletePayload: [String: Any] = ["reviewId": "nonexistent-review-id"]
+        service.processDeleteThought(payload: deletePayload)
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            // Should complete without crash
+            expectation.fulfill()
+        }
+        wait(for: [expectation], timeout: 3.0)
+    }
+
+    // MARK: - ThoughtReviewId Tests
+
+    func testProcessThoughtReviewIdAssignsId() {
+        let expectation = expectation(description: "ReviewId assigned")
+        let context = store.viewContext
+        let book = Book(context: context)
+        book.bookId = "book-rev"
+        book.title = "Review Book"
+        book.author = "Author"
+        book.createdAt = Date()
+        book.updatedAt = Date()
+
+        let thought = Thought(context: context)
+        thought.thoughtId = UUID().uuidString
+        thought.thoughtText = "My deep thought"
+        thought.createdAt = Date()
+        thought.capturedAt = Date()
+        thought.serverDeleted = false
+        thought.book = book
+        store.saveContext(context)
+
+        let payload: [String: Any] = [
+            "reviewId": "16108167_885BNTrVd",
+            "bookId": "book-rev",
+            "content": "My deep thought"
+        ]
+        service.processThoughtReviewId(payload: payload)
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            let request: NSFetchRequest<Thought> = Thought.fetchRequest()
+            request.predicate = NSPredicate(format: "book.bookId == %@", "book-rev")
+            let results = try? self.store.viewContext.fetch(request)
+            XCTAssertEqual(results?.first?.reviewId, "16108167_885BNTrVd")
+            expectation.fulfill()
+        }
+        wait(for: [expectation], timeout: 3.0)
+    }
+
+    func testProcessThoughtReviewIdNoMatch() {
+        let expectation = expectation(description: "No match, no crash")
+        let payload: [String: Any] = [
+            "reviewId": "16108167_noMatch",
+            "bookId": "nonexistent-book",
+            "content": "no matching thought"
+        ]
+        service.processThoughtReviewId(payload: payload)
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            let request: NSFetchRequest<Thought> = Thought.fetchRequest()
+            let results = try? self.store.viewContext.fetch(request)
+            XCTAssertEqual(results?.count, 0)
+            expectation.fulfill()
+        }
+        wait(for: [expectation], timeout: 3.0)
+    }
+
+    func testProcessThoughtReviewIdSkipsAlreadyAssigned() {
+        let expectation = expectation(description: "Already assigned skipped")
+        let context = store.viewContext
+        let book = Book(context: context)
+        book.bookId = "book-rev2"
+        book.title = "Book"
+        book.author = "Author"
+        book.createdAt = Date()
+        book.updatedAt = Date()
+
+        let thought = Thought(context: context)
+        thought.thoughtId = UUID().uuidString
+        thought.reviewId = "existing-review-id"
+        thought.thoughtText = "Already has reviewId"
+        thought.createdAt = Date()
+        thought.capturedAt = Date()
+        thought.serverDeleted = false
+        thought.book = book
+        store.saveContext(context)
+
+        let payload: [String: Any] = [
+            "reviewId": "new-review-id",
+            "bookId": "book-rev2",
+            "content": "Already has reviewId"
+        ]
+        service.processThoughtReviewId(payload: payload)
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            let request: NSFetchRequest<Thought> = Thought.fetchRequest()
+            request.predicate = NSPredicate(format: "book.bookId == %@", "book-rev2")
+            let results = try? self.store.viewContext.fetch(request)
+            // Should NOT overwrite existing reviewId
+            XCTAssertEqual(results?.first?.reviewId, "existing-review-id")
             expectation.fulfill()
         }
         wait(for: [expectation], timeout: 3.0)

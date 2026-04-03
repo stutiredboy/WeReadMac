@@ -33,6 +33,8 @@ final class NotesCaptureHandler: NSObject, WKScriptMessageHandler {
             captureService.processThoughtUpdate(payload: payload, rawMessage: body)
         case "deleteThought":
             captureService.processDeleteThought(payload: payload)
+        case "thoughtReviewId":
+            captureService.processThoughtReviewId(payload: payload)
         case "bookInfo":
             captureService.processBookInfo(payload: payload)
         case "chapterInfos":
