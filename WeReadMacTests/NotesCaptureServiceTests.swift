@@ -318,7 +318,6 @@ final class NotesCaptureServiceTests: XCTestCase {
         service.processDeleteThought(payload: deletePayload)
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-            // Should complete without crash
             expectation.fulfill()
         }
         wait(for: [expectation], timeout: 3.0)
@@ -411,7 +410,6 @@ final class NotesCaptureServiceTests: XCTestCase {
             let request: NSFetchRequest<Thought> = Thought.fetchRequest()
             request.predicate = NSPredicate(format: "book.bookId == %@", "book-rev2")
             let results = try? self.store.viewContext.fetch(request)
-            // Should NOT overwrite existing reviewId
             XCTAssertEqual(results?.first?.reviewId, "existing-review-id")
             expectation.fulfill()
         }
