@@ -3,6 +3,7 @@ set -euo pipefail
 
 SCHEME="WeReadMac"
 CONFIGURATION="Release"
+APP_VERSION="1.0.2"
 PROJECT_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 OUTPUT_DMG="${PROJECT_ROOT}/WeReadMac.dmg"
 
@@ -17,8 +18,11 @@ cleanup() {
 trap cleanup EXIT
 
 echo "==> Archiving ${SCHEME} (${CONFIGURATION})..."
-xcodebuild -scheme "$SCHEME" -configuration "$CONFIGURATION" \
-    -archivePath "$ARCHIVE_PATH" archive -quiet
+xcodebuild clean archive \
+    -scheme "$SCHEME" -configuration "$CONFIGURATION" \
+    -archivePath "$ARCHIVE_PATH" \
+    MARKETING_VERSION="${APP_VERSION}" \
+    -quiet
 
 echo "==> Exporting .app..."
 cat > "$EXPORT_OPTIONS" <<'EOF'

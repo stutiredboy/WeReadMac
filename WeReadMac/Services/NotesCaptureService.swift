@@ -159,40 +159,6 @@ final class NotesCaptureService {
         }
     }
 
-    func processThoughtReviewId(payload: [String: Any]) {
-        let context = store.newBackgroundContext()
-        context.perform {
-            guard let reviewId = payload["reviewId"] as? String, !reviewId.isEmpty else { return }
-            guard let bookId = self.extractBookId(from: payload) else {
-                self.logger.warning("thoughtReviewId payload missing bookId")
-                return
-            }
-
-            let content = payload["content"] as? String
-
-            // Find the most recently captured thought for this book that has no reviewId yet
-            let request: NSFetchRequest<Thought> = Thought.fetchRequest()
-            var predicates = [
-                NSPredicate(format: "book.bookId == %@", bookId),
-                NSPredicate(format: "reviewId == nil")
-            ]
-            if let content, !content.isEmpty {
-                predicates.append(NSPredicate(format: "thoughtText == %@", self.decodeBase64IfNeeded(content)))
-            }
-            request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: predicates)
-            request.sortDescriptors = [NSSortDescriptor(key: "capturedAt", ascending: false)]
-            request.fetchLimit = 1
-
-            if let thought = try? context.fetch(request).first {
-                thought.reviewId = reviewId
-                self.store.saveContext(context)
-                self.logger.info("Assigned reviewId \(reviewId) to thought: \(thought.thoughtId ?? "unknown")")
-            } else {
-                self.logger.info("No matching thought found for reviewId: \(reviewId)")
-            }
-        }
-    }
-
     func processDeleteThought(payload: [String: Any]) {
         let context = store.newBackgroundContext()
         context.perform {
