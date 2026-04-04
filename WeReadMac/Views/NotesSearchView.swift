@@ -95,6 +95,7 @@ struct NotesSearchView: View {
 
 struct HighlightRow: View {
     let highlight: Highlight
+    var onDelete: (() -> Void)?
 
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
@@ -109,6 +110,14 @@ struct HighlightRow: View {
                         .foregroundColor(.secondary)
                 }
                 Spacer()
+                if let onDelete {
+                    Button(role: .destructive, action: onDelete) {
+                        Image(systemName: "trash")
+                            .font(.caption)
+                    }
+                    .buttonStyle(.borderless)
+                    .help("删除")
+                }
                 if let date = highlight.createdAt {
                     Text(date, style: .date)
                         .font(.caption)
@@ -139,6 +148,7 @@ struct HighlightRow: View {
 
 struct ThoughtRow: View {
     let thought: Thought
+    var onDelete: (() -> Void)?
 
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
@@ -165,6 +175,14 @@ struct ThoughtRow: View {
                         .foregroundColor(.secondary)
                 }
                 Spacer()
+                if let onDelete {
+                    Button(role: .destructive, action: onDelete) {
+                        Image(systemName: "trash")
+                            .font(.caption)
+                    }
+                    .buttonStyle(.borderless)
+                    .help("删除")
+                }
                 if let date = thought.createdAt {
                     Text(date, style: .date)
                         .font(.caption)

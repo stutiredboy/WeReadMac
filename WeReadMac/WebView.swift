@@ -1,6 +1,12 @@
 import SwiftUI
 import WebKit
 
+final class WebViewHolder {
+    static let shared = WebViewHolder()
+    weak var webView: WKWebView?
+    private init() {}
+}
+
 struct WebView: NSViewRepresentable {
     let url: URL
 
@@ -48,6 +54,7 @@ struct WebView: NSViewRepresentable {
 
         context.coordinator.webView = webView
         context.coordinator.observeNavigationCommands()
+        WebViewHolder.shared.webView = webView
         return webView
     }
 

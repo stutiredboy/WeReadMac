@@ -6,8 +6,13 @@ struct NotesListView: View {
     @State private var bookResults: [BookSearchResult] = []
     @State private var showExportSheet = false
     @State private var exportFormat: ExportFormat = .markdown
+    @State private var highlightToDelete: Highlight?
+    @State private var thoughtToDelete: Thought?
+    @State private var showDeleteHighlightAlert = false
+    @State private var showDeleteThoughtAlert = false
     private let searchService = NotesSearchService()
     private let exportService = NotesExportService()
+    private let deleteService = NotesDeleteService()
 
     var body: some View {
         NavigationSplitView {
@@ -24,6 +29,30 @@ struct NotesListView: View {
         }
         .frame(minWidth: 700, minHeight: 500)
         .onAppear { refreshBooks() }
+        .alert("确定要删除这条划线吗？", isPresented: $showDeleteHighlightAlert) {
+            Button("取消", role: .cancel) {}
+            Button("删除", role: .destructive) {
+                if let highlight = highlightToDelete {
+                    deleteService.deleteHighlight(highlight) {
+                        refreshBooks()
+                    }
+                }
+            }
+        } message: {
+            Text("删除后无法恢复")
+        }
+        .alert("确定要删除这条想法吗？", isPresented: $showDeleteThoughtAlert) {
+            Button("取消", role: .cancel) {}
+            Button("删除", role: .destructive) {
+                if let thought = thoughtToDelete {
+                    deleteService.deleteThought(thought) {
+                        refreshBooks()
+                    }
+                }
+            }
+        } message: {
+            Text("删除后无法恢复")
+        }
         .toolbar {
             ToolbarItem(placement: .automatic) {
                 Menu {
@@ -93,19 +122,24 @@ struct NotesListView: View {
             if !result.highlights.isEmpty {
                 Section("划线") {
                     ForEach(result.highlights, id: \.highlightId) { highlight in
-                        HighlightRow(highlight: highlight)
+                        HighlightRow(highlight: highlight) {
+                            highlightToDelete = highlight
+                            showDeleteHighlightAlert = true
+                        }
                     }
                 }
             }
             if !result.thoughts.isEmpty {
                 Section("想法") {
                     ForEach(result.thoughts, id: \.thoughtId) { thought in
-                        ThoughtRow(thought: thought)
+                        ThoughtRow(thought: thought) {
+                            thoughtToDelete = thought
+                            showDeleteThoughtAlert = true
+                        }
                     }
                 }
             }
         }
-        .textSelection(.enabled)
         .navigationTitle(result.book.title ?? "")
     }
 

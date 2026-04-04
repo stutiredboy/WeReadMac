@@ -31,6 +31,8 @@
 		E0DB1463EF924BA7A3783722 /* NotesSearchServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A08A6CF6D9614F9CB7AEE3D8; };
 		CA726CBF5EEC466CB5CAC2FC /* NotesExportServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EC0C1AF0DA1414B8E04A5FD; };
 		B1C2D3E4F5A64B78C9D0E1F2 /* BookmarkListSyncTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B3C4D5E6F74A89B0C1D2E3; };
+		D006A1B2C3D4E5F6A7B8C9D0 /* NotesDeleteService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E006A1B2C3D4E5F6A7B8C9D0; };
+		D106A1B2C3D4E5F6A7B8C9D0 /* NotesDeleteServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E106A1B2C3D4E5F6A7B8C9D0; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,6 +81,8 @@
 		A08A6CF6D9614F9CB7AEE3D8 /* NotesSearchServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesSearchServiceTests.swift; sourceTree = "<group>"; };
 		0EC0C1AF0DA1414B8E04A5FD /* NotesExportServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesExportServiceTests.swift; sourceTree = "<group>"; };
 		A2B3C4D5E6F74A89B0C1D2E3 /* BookmarkListSyncTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkListSyncTests.swift; sourceTree = "<group>"; };
+		E006A1B2C3D4E5F6A7B8C9D0 /* NotesDeleteService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesDeleteService.swift; sourceTree = "<group>"; };
+		E106A1B2C3D4E5F6A7B8C9D0 /* NotesDeleteServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesDeleteServiceTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -145,6 +149,7 @@
 				A08A6CF6D9614F9CB7AEE3D8,
 				0EC0C1AF0DA1414B8E04A5FD,
 				A2B3C4D5E6F74A89B0C1D2E3,
+				E106A1B2C3D4E5F6A7B8C9D0,
 			);
 			path = WeReadMacTests;
 			sourceTree = "<group>";
@@ -179,7 +184,7 @@
 		7A2A5AC61ACE49789290809A /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				348B34FE45094C09A9FFD1B6, 1B486C4207474E5795D2AF50, 84876DB752234ED6821E1FDA, 59FC30C438E549ED90D8DBBC,
+				348B34FE45094C09A9FFD1B6, 1B486C4207474E5795D2AF50, 84876DB752234ED6821E1FDA, 59FC30C438E549ED90D8DBBC, E006A1B2C3D4E5F6A7B8C9D0,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -316,6 +321,7 @@
 				8D2F75814C7C48CAB9FC95B6,
 				3EA470314B4A4EE4A0D97ACB,
 				A67C4E0341994CC6A94B8337,
+				D006A1B2C3D4E5F6A7B8C9D0,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -330,6 +336,7 @@
 				E0DB1463EF924BA7A3783722,
 				CA726CBF5EEC466CB5CAC2FC,
 				B1C2D3E4F5A64B78C9D0E1F2,
+				D106A1B2C3D4E5F6A7B8C9D0,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

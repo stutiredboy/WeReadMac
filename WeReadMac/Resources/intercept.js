@@ -284,8 +284,9 @@
         return origSend.apply(this, arguments);
     };
 
-    // Patch fetch
+    // Patch fetch — expose original for use by NotesDeleteService
     var origFetch = window.fetch;
+    window.__origFetch = origFetch;
     window.fetch = function(input, init) {
         var url = typeof input === 'string' ? input : (input && input.url ? input.url : '');
         var method = (init && init.method) || 'GET';
