@@ -60,14 +60,14 @@ final class NotesDeleteServiceTests: XCTestCase {
         let expectation = expectation(description: "Highlight deleted")
         let context = store.viewContext
         let book = createBook(bookId: "book1", context: context)
-        let highlight = createHighlight(id: "123456789", book: book, context: context)
+        let highlight = createHighlight(id: "CB_book1_5_100-200", book: book, context: context)
         store.saveContext(context)
 
         service.deleteHighlight(highlight)
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
             let request: NSFetchRequest<Highlight> = Highlight.fetchRequest()
-            request.predicate = NSPredicate(format: "highlightId == %@", "123456789")
+            request.predicate = NSPredicate(format: "highlightId == %@", "CB_book1_5_100-200")
             let results = try? self.store.viewContext.fetch(request)
             XCTAssertEqual(results?.count, 0, "Highlight should be deleted from CoreData")
             expectation.fulfill()
@@ -138,17 +138,18 @@ final class NotesDeleteServiceTests: XCTestCase {
 
     func testDeleteHighlightNoWebView() {
         // WebViewHolder.shared.webView is nil by default in tests — this should not crash
+        // Using CB_ prefix to exercise the server-delete code path (which gracefully handles nil WebView)
         let expectation = expectation(description: "Delete succeeds without WebView")
         let context = store.viewContext
         let book = createBook(bookId: "book4", context: context)
-        let highlight = createHighlight(id: "999", book: book, context: context)
+        let highlight = createHighlight(id: "CB_book4_10_0-50", book: book, context: context)
         store.saveContext(context)
 
         service.deleteHighlight(highlight)
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
             let request: NSFetchRequest<Highlight> = Highlight.fetchRequest()
-            request.predicate = NSPredicate(format: "highlightId == %@", "999")
+            request.predicate = NSPredicate(format: "highlightId == %@", "CB_book4_10_0-50")
             let results = try? self.store.viewContext.fetch(request)
             XCTAssertEqual(results?.count, 0, "Local deletion should succeed even without WebView")
             expectation.fulfill()

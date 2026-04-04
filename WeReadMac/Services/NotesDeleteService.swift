@@ -16,7 +16,7 @@ final class NotesDeleteService {
 
     func deleteHighlight(_ highlight: Highlight, completion: (() -> Void)? = nil) {
         let highlightId = highlight.highlightId ?? ""
-        let canDeleteOnServer = !highlightId.isEmpty && !highlightId.contains("_")
+        let canDeleteOnServer = !highlightId.isEmpty && highlightId.hasPrefix("CB_")
 
         let context = store.newBackgroundContext()
         context.perform {
@@ -62,39 +62,48 @@ final class NotesDeleteService {
 
     // MARK: - Server Deletion
     //
-    // Uses the original (unpatched) fetch stored by intercept.js as __origFetch
-    // to avoid our own interceptor re-processing these requests.
+    // Uses window.fetch (NOT __origFetch) so the request goes through WeRead's
+    // own fetch wrapper which adds required headers like x-wrpa-0 (request signature).
+    // Our intercept.js is injected at documentStart (before WeRead's JS), so
+    // __origFetch is the raw browser fetch without WeRead's headers — that won't work.
+    // Using window.fetch chains: WeRead wrapper → our interceptor → native fetch.
+    // Our interceptor seeing the delete is harmless (local record already deleted).
+    //
     // Uses relative URLs so the request goes to the page's own origin (weread.qq.com),
     // which avoids CORS issues with i.weread.qq.com.
-    // bookmarkId/reviewId are sent as numbers to match WeRead's own format.
+    // bookmarkId/reviewId are sent as strings to match WeRead's own format.
 
     private func sendServerDeleteHighlight(bookmarkId: String) {
-        let id = Int(bookmarkId).map { String($0) } ?? "'\(bookmarkId)'"
         let js = """
         (function() {
-            var f = window.__origFetch || fetch;
-            return f.call(window, '/web/book/removeBookmark', {
+            return fetch('/web/book/removeBookmark', {
                 method: 'POST',
                 credentials: 'include',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ bookmarkId: \(id) })
-            }).then(function(r) { return r.status; }).catch(function() { return -1; });
+                headers: { 'Content-Type': 'application/json;charset=UTF-8' },
+                body: JSON.stringify({ bookmarkId: '\(bookmarkId)' })
+            }).then(function(r) {
+                return r.clone().text().then(function(body) {
+                    return { status: r.status, body: body };
+                });
+            }).catch(function(e) { return { status: -1, body: e.message || 'fetch error' }; });
         })();
         """
         evaluateJS(js, label: "deleteHighlight(\(bookmarkId))")
     }
 
     private func sendServerDeleteThought(reviewId: String) {
-        let id = Int(reviewId).map { String($0) } ?? "'\(reviewId)'"
         let js = """
         (function() {
-            var f = window.__origFetch || fetch;
-            return f.call(window, '/web/review/delete', {
+            return fetch('/web/review/delete', {
                 method: 'POST',
                 credentials: 'include',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ reviewId: \(id) })
-            }).then(function(r) { return r.status; }).catch(function() { return -1; });
+                headers: { 'Content-Type': 'application/json;charset=UTF-8' },
+                body: JSON.stringify({ reviewId: '\(reviewId)' })
+            }).then(function(r) {
+                return r.clone().text().then(function(body) {
+                    return { status: r.status, body: body };
+                });
+            }).catch(function(e) { return { status: -1, body: e.message || 'fetch error' }; });
         })();
         """
         evaluateJS(js, label: "deleteThought(\(reviewId))")
@@ -109,8 +118,12 @@ final class NotesDeleteService {
             webView.evaluateJavaScript(js) { result, error in
                 if let error {
                     self.logger.warning("Server delete failed for \(label): \(error.localizedDescription)")
+                } else if let dict = result as? [String: Any] {
+                    let status = dict["status"] ?? "?"
+                    let body = dict["body"] ?? ""
+                    self.logger.info("Server delete for \(label): status=\(String(describing: status)) body=\(String(describing: body))")
                 } else {
-                    self.logger.info("Server delete sent for \(label), status: \(String(describing: result))")
+                    self.logger.info("Server delete sent for \(label), result: \(String(describing: result))")
                 }
             }
         }
