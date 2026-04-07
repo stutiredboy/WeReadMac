@@ -56,8 +56,7 @@ struct WebView: NSViewRepresentable {
         context.coordinator.webView = webView
         context.coordinator.observeNavigationCommands()
 
-        let readerState = self.readerState
-        context.coordinator.urlObservation = webView.observe(\.url, options: [.initial, .new]) { wv, _ in
+        context.coordinator.urlObservation = webView.observe(\.url, options: [.initial]) { [readerState] wv, _ in
             let current = wv.url
             Task { @MainActor in
                 readerState.update(from: current)
