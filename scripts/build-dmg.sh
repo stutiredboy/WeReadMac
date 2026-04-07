@@ -3,7 +3,7 @@ set -euo pipefail
 
 SCHEME="WeReadMac"
 CONFIGURATION="Release"
-APP_VERSION="1.0.2"
+APP_VERSION="1.0.3"
 PROJECT_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 OUTPUT_DMG="${PROJECT_ROOT}/WeReadMac.dmg"
 

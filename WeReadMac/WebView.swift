@@ -9,6 +9,7 @@ final class WebViewHolder {
 
 struct WebView: NSViewRepresentable {
     let url: URL
+    let readerState: ReaderState
 
     func makeNSView(context: Context) -> WKWebView {
         let configuration = WKWebViewConfiguration()
@@ -54,6 +55,15 @@ struct WebView: NSViewRepresentable {
 
         context.coordinator.webView = webView
         context.coordinator.observeNavigationCommands()
+
+        let readerState = self.readerState
+        context.coordinator.urlObservation = webView.observe(\.url, options: [.initial, .new]) { wv, _ in
+            let current = wv.url
+            Task { @MainActor in
+                readerState.update(from: current)
+            }
+        }
+
         WebViewHolder.shared.webView = webView
         return webView
     }
@@ -68,11 +78,14 @@ struct WebView: NSViewRepresentable {
         nsView.configuration.userContentController.removeScriptMessageHandler(forName: "notesCapture")
         nsView.configuration.userContentController.removeAllUserScripts()
         coordinator.captureHandler = nil
+        coordinator.urlObservation?.invalidate()
+        coordinator.urlObservation = nil
     }
 
     class Coordinator: NSObject, WKNavigationDelegate, WKUIDelegate {
         weak var webView: WKWebView?
         var captureHandler: NotesCaptureHandler?
+        var urlObservation: NSKeyValueObservation?
 
         // MARK: - WKNavigationDelegate
 
